@@ -1,0 +1,6 @@
+﻿create table employee4(empID int,name varchar(20),deptName varchar(20) default 'Unknown');
+desc employee4;
+INSERT INTO employee4 values(110,'Yash','IT');
+INSERT INTO employee4 values(111,'Rohan','Admin');
+SELECT * FROM employee4;
+INSERT INTO employee4(empID,name) values(112,'Aniket');
