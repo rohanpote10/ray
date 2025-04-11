@@ -8,6 +8,24 @@
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <script type="text/javascript">
+        function EditFunk(uid) {
+        	document.mypage.action = "<%=request.getContextPath()%>/adminEdit";
+            document.getElementById("userIDField").value = uid;
+            document.mypage.submit();
+        }
+
+        function deleteFunc(uid) {
+            const confirmation = confirm("Are you sure you want to delete this account?");
+            if (confirmation) {
+                document.mypage.action = "deleteAccount";
+                document.getElementById("userIDField").value = uid;
+                document.mypage.submit();
+            }
+        }
+    </script>
+
     <style>
         :root {
             --primary: #0033A1;
@@ -24,22 +42,41 @@
             animation: fadeIn 1s ease-in-out;
         }
 
-        h2 {
-            color: var(--primary);
-            text-align: center;
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 30px;
         }
 
-       .summary-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 40px;
-    flex-wrap: nowrap;
-    overflow-x: auto;   
-    animation: fadeIn 1s ease-in-out;
-}
+        .header-bar h2 {
+            color: var(--primary);
+            margin: 0;
+        }
 
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+
+        .summary-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            animation: fadeIn 1s ease-in-out;
+        }
 
         .summary-card {
             background: white;
@@ -133,66 +170,38 @@
         }
 
         @keyframes bounceFadeIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.8) translateY(40px);
-            }
-            60% {
-                opacity: 1;
-                transform: scale(1.05) translateY(-5px);
-            }
-            100% {
-                transform: scale(1) translateY(0);
-            }
+            0% {opacity: 0; transform: scale(0.8) translateY(40px);}
+            60% {opacity: 1; transform: scale(1.05) translateY(-5px);}
+            100% {transform: scale(1) translateY(0);}
         }
     </style>
 </head>
 <body>
-<div style="text-align: right; margin-bottom: 20px;">
+
+<!-- Updated header with logout button -->
+<div class="header-bar">
+    <h2>Admin Dashboard</h2>
     <form action="login.jsp" method="get">
-        <button type="submit" style="
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.3s ease;
-        ">Logout</button>
+        <button type="submit" class="logout-btn">Logout</button>
     </form>
 </div>
 
-    <h2>Admin Dashboard</h2>
-
-    <!-- Summary Cards -->
-    <div class="summary-container">
-        <div class="summary-card">
-            <h3>Total Accounts</h3>
-            <span>${totalAccounts}</span>
-        </div>
-        <div class="summary-card">
-            <h3>Savings Accounts</h3>
-            <span>${savingsAcc}</span>
-        </div>
-        <div class="summary-card">
-            <h3>Current Accounts</h3>
-            <span>${currentAcc}</span>
-        </div>
-        <div class="summary-card">
-    <h3>FD Accounts</h3>
-    <span>${fdAcc}</span>
+<div class="summary-container">
+    <div class="summary-card"><h3>Total Accounts</h3><span>${totalAccounts}</span></div>
+    <div class="summary-card"><h3>Savings Accounts</h3><span>${savingsAcc}</span></div>
+    <div class="summary-card"><h3>Current Accounts</h3><span>${currentAcc}</span></div>
+    <div class="summary-card"><h3>FD Accounts</h3><span>${fdAcc}</span></div>
+    <div class="summary-card"><h3>Total Balance</h3><span>${balance} Rs.</span></div>
 </div>
-        
-        <div class="summary-card">
-            <h3>Total Balance</h3>
-            <span>${balance} Rs.</span>
-        </div>
-    </div>
 
-    <!-- Users Table -->
-    <% List<Accounts> accountList=(List<Accounts>)request.getAttribute("listOfAcc"); %>>
-    <h2>All Users & Accounts</h2>
+<%
+    List<Accounts> accountList = (List<Accounts>) request.getAttribute("listOfAcc");
+%>
+
+<h2>All Users & Accounts</h2>
+
+<form name="mypage" method="get">
+    <input type="hidden" name="userID" id="userIDField" />
     <table>
         <tr>
             <th>User ID</th>
@@ -204,32 +213,24 @@
             <th>Balance</th>
             <th>Actions</th>
         </tr>
- 
-    
+
+        <% for (Accounts account : accountList) { %>
         <tr>
-        <% for(Accounts account:accountList) {%>
             <td><%= account.getUserID() %></td>
             <td><%= account.getUsername() %></td>
             <td><%= account.getName() %></td>
             <td><%= account.getAccno() %></td>
             <td><%= account.getBranch() %></td>
-            <td><%= account.getEmail()%></td>
-            <td><%= account.getMinbal()%></td>
+            <td><%= account.getEmail() %></td>
+            <td><%= account.getMinbal() %></td>
             <td>
-                <form action="EditDetails.jsp" method="get" style="display:inline;">
-                    <input type="hidden" name="id" value="1" />
-                    <button class="edit-btn" type="submit">Edit</button>
-                </form>
-                <form action="deleteAccount" method="post" style="display:inline;">
-                    <input type="hidden" name="id" value="1" />
-                    <button class="delete-btn" type="submit">Delete</button>
-                </form>
+                <button type="button" class="edit-btn" onclick="EditFunk('<%= account.getUserID() %>')">Edit</button>
+                <button type="button" class="delete-btn" onclick="deleteFunc('<%= account.getUserID() %>')">Delete</button>
             </td>
         </tr>
-        <%} %>
-    
-
+        <% } %>
     </table>
+</form>
 
 </body>
 </html>

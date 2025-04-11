@@ -1,5 +1,7 @@
 package com.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,31 +65,43 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public String uploadDocs(Accounts account, MultipartFile pancard, MultipartFile aadhar, Model model) {
 
-		return sd.uploadDocsToDB(account,pancard,aadhar,model);
+		return sd.uploadDocsToDB(account, pancard, aadhar, model);
 	}
 
 	@Override
-	public String forgotPasswordExisting(Accounts account, String newPassword, String username, String oldPassword, 
+	public String forgotPasswordExisting(Accounts account, String newPassword, String username, String oldPassword,
 			Model model) {
-		
-		return sd.forgotPasswordExistingUser(account,newPassword,username,oldPassword,model);
+
+		return sd.forgotPasswordExistingUser(account, newPassword, username, oldPassword, model);
 	}
 
 	@Override
 	public String forgotPasswordNonExisting(String newPassword, String username, String oldPassword, Model model) {
-		sd.forgotPasswordNonExisting(newPassword,username,oldPassword,model);
+		sd.forgotPasswordNonExisting(newPassword, username, oldPassword, model);
 		return null;
 	}
 
 	@Override
 	public String addAdmin(Accounts account, Model model) {
-		return sd.addAdminToDB(account,model);
+		return sd.addAdminToDB(account, model);
 	}
 
 	@Override
 	public String getAllUsers(Model model) {
-		sd.getAllUsersFromDB(model);
-		return null;
+		System.out.println("Im here in accSreviceImpl");
+		return sd.getAllUsersFromDB(model);
+		
 	}
+
+	@Override
+    public Accounts getAccountById(int id) {
+        return sd.getAccountById(id);
+    }
+
+    @Override
+    public List<Accounts> updateAccount(Accounts account) {
+        return sd.updateAccountInDB(account);
+    }
+
 
 }

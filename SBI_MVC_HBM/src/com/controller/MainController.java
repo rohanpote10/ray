@@ -1,5 +1,8 @@
 package com.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dao.ServiceDAO;
+import com.dao.ServiceDAOImpl;
 import com.model.Accounts;
 import com.service.AccountService;
 
@@ -20,7 +26,7 @@ public class MainController {
 	private AccountService accService;
 
 	@RequestMapping(value = "/register")
-	public String addUser(@ModelAttribute Accounts account, Model model) { 
+	public String addUser(@ModelAttribute Accounts account, Model model) {
 		String resultPage = accService.addUser(account, model);
 
 		if (resultPage.equals("Register")) {
@@ -39,7 +45,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/deposit")
-	public String depositMoney(@RequestParam("amount") String depositAmt, Model model, HttpSession httpSession) { 
+	public String depositMoney(@RequestParam("amount") String depositAmt, Model model, HttpSession httpSession) {
 		Accounts account = (Accounts) httpSession.getAttribute("accountObj");
 		return accService.despositMoney(account, depositAmt, model);
 	}
@@ -76,21 +82,37 @@ public class MainController {
 		if (account != null) {
 			return accService.forgotPasswordExisting(account, newPassword, username, oldPassword, model);
 		} else {
-			accService.forgotPasswordNonExisting(newPassword,username,oldPassword,model);
+			accService.forgotPasswordNonExisting(newPassword, username, oldPassword, model);
 			return "Login";
 		}
 	}
 
-	@RequestMapping(value="/adminRegister")
+	@RequestMapping(value = "/adminRegister")
 	public String adminRegistration(@ModelAttribute Accounts account, Model model) {
-		
-		return accService.addAdmin(account,model);
+
+		return accService.addAdmin(account, model);
 	}
-	
+
 	@RequestMapping("/adminDashboard")
 	public String showAdminDashboard(Model model) {
-		
+		System.out.println("Im here MC");
 		accService.getAllUsers(model);
-	    return "adminPortal"; // now it goes to JSP
+		return "adminPortal"; 
+	}
+
+	@RequestMapping("/adminEdit")
+	public String editAccount(@RequestParam("userID") int id, Model model) {
+	    Accounts account = accService.getAccountById(id);
+	    if(account != null) {
+	        model.addAttribute("account", account);
+	        return "adminEdit";
+	    }
+	    return "adminPortal";
+	}
+
+	@RequestMapping("/updateAccount")
+	public String updateAccount(@ModelAttribute Accounts account) {
+	    accService.updateAccount(account);
+	    return "redirect:/adminPortal";
 	}
 }

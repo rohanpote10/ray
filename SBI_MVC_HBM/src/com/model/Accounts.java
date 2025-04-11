@@ -28,7 +28,7 @@ public class Accounts {
 	private String email;
 	private String pancard;
 	private String aadhar;
-	
+
 	private String accno;
 	private String ifsc;
 	private String branch;

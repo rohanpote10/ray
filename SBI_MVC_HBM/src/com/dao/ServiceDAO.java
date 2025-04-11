@@ -1,5 +1,7 @@
 package com.dao;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.Model;
@@ -30,4 +32,8 @@ public interface ServiceDAO {
 	public String addAdminToDB(Accounts account, Model model);
 
 	public String getAllUsersFromDB(Model model);
+
+	public Accounts getAccountById(int id);
+	
+	List<Accounts> updateAccountInDB(Accounts account);
 }

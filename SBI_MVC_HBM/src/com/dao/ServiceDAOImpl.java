@@ -55,7 +55,7 @@ public class ServiceDAOImpl implements ServiceDAO {
 	}
 
 	@Override
-	public String loginToDB(String unameUI, String passUI, Model model, HttpSession httpSession) {
+	public String loginToDB(String unameUI, String passUI, Model model, HttpSession httpSession) { 
 
 		Session session = sf.openSession();
 		String hql = "FROM Accounts";
@@ -235,52 +235,71 @@ public class ServiceDAOImpl implements ServiceDAO {
 
 	@Override
 	public String getAllUsersFromDB(Model model) {
-		
-		Session session=sf.openSession();
-		Transaction trns=session.beginTransaction();
-		String hql="SELECT COUNT(userID) FROM Accounts  WHERE aadhar IS NOT NULL";
-		Query<Long> query=session.createQuery(hql,Long.class);
-		Long totalAccounts=query.uniqueResult();
-		model.addAttribute("totalAccounts",totalAccounts);
-		
-		String accType1="Savings";
-		hql="SELECT COUNT(userID) FROM Accounts WHERE acctype=:accType1";
-		Query<Long> queryType1=session.createQuery(hql,Long.class);
+
+		Session session = sf.openSession();
+		Transaction trns = session.beginTransaction();
+		String hql = "SELECT COUNT(userID) FROM Accounts  WHERE aadhar IS NOT NULL";
+		Query<Long> query = session.createQuery(hql, Long.class);
+		Long totalAccounts = query.uniqueResult();
+		model.addAttribute("totalAccounts", totalAccounts);
+
+		String accType1 = "Savings";
+		hql = "SELECT COUNT(userID) FROM Accounts WHERE acctype=:accType1";
+		Query<Long> queryType1 = session.createQuery(hql, Long.class);
 		queryType1.setParameter("accType1", accType1);
-		Long savingsAcc=queryType1.uniqueResult();
-		model.addAttribute("savingsAcc",savingsAcc);
-		
-		String accType2="Current";
-		hql="SELECT COUNT(userID) FROM Accounts WHERE acctype=:accType2";
-		Query<Long> queryType2=session.createQuery(hql,Long.class);
+		Long savingsAcc = queryType1.uniqueResult();
+		model.addAttribute("savingsAcc", savingsAcc);
+
+		String accType2 = "Current";
+		hql = "SELECT COUNT(userID) FROM Accounts WHERE acctype=:accType2";
+		Query<Long> queryType2 = session.createQuery(hql, Long.class);
 		queryType2.setParameter("accType2", accType2);
-		Long currentAcc=queryType2.uniqueResult();
-		model.addAttribute("currentAcc",currentAcc);
-	
+		Long currentAcc = queryType2.uniqueResult();
+		model.addAttribute("currentAcc", currentAcc);
+
 		String accType3 = "Fixed Deposit";
 		hql = "SELECT COUNT(userID) FROM Accounts WHERE acctype = :accType3";
 		Query<Long> queryType3 = session.createQuery(hql, Long.class);
 		queryType3.setParameter("accType3", accType3);
 		Long fdAcc = queryType3.uniqueResult();
 		model.addAttribute("fdAcc", fdAcc);
-		
+
 		List<String> minBals = session.createQuery("SELECT minbal FROM Accounts ", String.class).list();
-		Double total = minBals.stream()
-		    .filter(Objects::nonNull)
-		    .mapToDouble(val -> {
-		        try {
-		            return Double.parseDouble(val);
-		        } catch (NumberFormatException e) {
-		            return 0.0;
-		        }
-		    }).sum();
+		Double total = minBals.stream().filter(Objects::nonNull).mapToDouble(val -> {
+			try {
+				return Double.parseDouble(val);
+			} catch (NumberFormatException e) {
+				return 0.0;
+			}
+		}).sum();
 		model.addAttribute("balance", String.valueOf(total));
-		
-		hql="FROM Accounts WHERE aadhar IS NOT NULL";
-		Query<Accounts> queryAll=session.createQuery(hql);
-		List<Accounts>listOfAccounts=queryAll.getResultList();
-		model.addAttribute("listOfAcc",listOfAccounts);
+		System.out.println("Im here ");
+
+		hql = "FROM Accounts WHERE aadhar IS NOT NULL";
+		Query<Accounts> queryAll = session.createQuery(hql);
+		List<Accounts> listOfAccounts = queryAll.getResultList();
+		model.addAttribute("listOfAcc", listOfAccounts);
 		return "adminPortal";
 	}
+
+	@Override
+    public Accounts getAccountById(int id) {
+        Session session = sf.openSession();
+        return session.get(Accounts.class, id);
+    }
+
+    @Override
+    public List<Accounts> updateAccountInDB(Accounts account) {
+        Session session = sf.openSession();
+        session.saveOrUpdate(account);
+        session.beginTransaction().commit();
+        System.out.println("Account updated");
+        Query query=session.createQuery("from Accounts");
+        List<Accounts> accountList=query.getResultList();
+        return accountList;
+    }
+
+
+
 
 }
