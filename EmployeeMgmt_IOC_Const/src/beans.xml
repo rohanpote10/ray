@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+						"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<!-- Employee -->
+<beans>
+	<bean id="employee" class="com.model.Employee">
+		<constructor-arg value="120"></constructor-arg>
+		<constructor-arg value="AniketMeher"></constructor-arg>
+		<constructor-arg value="55000"></constructor-arg>
+	</bean>
+
+	<bean id="employee1" class="com.model.Employee">
+		<constructor-arg value="125"></constructor-arg>
+		<constructor-arg value="RohanBorse"></constructor-arg>
+		<constructor-arg value="9500"></constructor-arg>
+	</bean>
+
+	<bean id="employee3" class="com.model.Employee">
+		<constructor-arg value="130"></constructor-arg>
+		<constructor-arg value="RohanArude"></constructor-arg>
+		<constructor-arg value="70000"></constructor-arg>
+	</bean>
+
+	<bean id="employee4" class="com.model.Employee">
+		<constructor-arg value="135"></constructor-arg>
+		<constructor-arg value="VikrantJadhav"></constructor-arg>
+		<constructor-arg value="65000"></constructor-arg>
+	</bean>
+
+	<bean id="department" class="com.model.Department">
+		<constructor-arg value="320"></constructor-arg>
+		<constructor-arg value="IT Infra"></constructor-arg>
+		<constructor-arg>
+			<map>
+				<entry key="Infra Support" value="Mumbai"></entry>
+				<entry key="Infra Maintainence" value="Mumbai"></entry>
+			</map>
+		</constructor-arg>
+		<constructor-arg>
+			<list>
+				<ref bean="employee" />
+				<ref bean="employee1" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="department1" class="com.model.Department">
+		<constructor-arg value="420"></constructor-arg>
+		<constructor-arg value="Admin"></constructor-arg>
+		<constructor-arg>
+			<map>
+				<entry key="HR" value="Mumbai"></entry>
+				<entry key="Operations" value="Mumbai"></entry>
+			</map>
+		</constructor-arg>
+		<constructor-arg>
+			<list>
+				<ref bean="employee3" />
+				<ref bean="employee4" />
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="company" class="com.model.Company">
+		<constructor-arg value="520"></constructor-arg>
+		<constructor-arg value="Exponent It Services"></constructor-arg>
+		<constructor-arg>
+			<list>
+				<ref bean="department" />
+				<ref bean="department1" />
+			</list>
+		</constructor-arg>
+	</bean>
+</beans>
