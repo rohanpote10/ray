@@ -71,4 +71,11 @@ public class AccountServiceImpl implements AccountService {
 		return sd.uploadDocsToDB(account,pancard,aadhar,model);
 	}
 
+	@Override
+	public String forgotPasswordExisting(Accounts account, String newPassword, String username, String oldPassword,
+			Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
