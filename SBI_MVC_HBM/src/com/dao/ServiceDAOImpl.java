@@ -55,7 +55,7 @@ public class ServiceDAOImpl implements ServiceDAO {
 	}
 
 	@Override
-	public String loginToDB(String unameUI, String passUI, Model model, HttpSession httpSession) { 
+	public String loginToDB(String unameUI, String passUI, Model model, HttpSession httpSession) {
 
 		Session session = sf.openSession();
 		String hql = "FROM Accounts";
@@ -82,9 +82,9 @@ public class ServiceDAOImpl implements ServiceDAO {
 	public String depositMoneyToDB(Accounts account, String depositAmt, Model model) {
 
 		Session session = sf.openSession();
-		int uID = account.getUserID();
+	//	int uID = account.getUserID();
 		Transaction trns = session.beginTransaction();
-		String page = "";
+	//	String page = "";
 
 		String previousBalance = account.getMinbal();
 		double updatedBal = Double.parseDouble(previousBalance) + Double.parseDouble(depositAmt);
@@ -283,23 +283,40 @@ public class ServiceDAOImpl implements ServiceDAO {
 	}
 
 	@Override
-    public Accounts getAccountById(int id) {
-        Session session = sf.openSession();
-        return session.get(Accounts.class, id);
-    }
+	public Accounts getAccountById(int id) {
+		Session session = sf.openSession();
+		return session.get(Accounts.class, id);
+	}
 
-    @Override
-    public List<Accounts> updateAccountInDB(Accounts account) {
-        Session session = sf.openSession();
-        session.saveOrUpdate(account);
-        session.beginTransaction().commit();
-        System.out.println("Account updated");
-        Query query=session.createQuery("from Accounts");
-        List<Accounts> accountList=query.getResultList();
-        return accountList;
-    }
+	@Override
+	public List<Accounts> updateAccountInDB(Accounts account) {
+		Session session = sf.openSession();
+		Transaction trns=session.beginTransaction();
+		Query query=session.createQuery("UPDATE Accounts SET name=:name, email=:email, branch=:branch WHERE userID=:uid");
+		query.setParameter("name", account.getName());
+		query.setParameter("email", account.getEmail());
+		query.setParameter("branch", account.getBranch());
+		query.setParameter("uid", account.getUserID());
+		int rows=query.executeUpdate();
+		System.out.println(rows+" rows affected");
+		trns.commit();
+		Query queryList = session.createQuery("from Accounts");
+		List<Accounts> accountList = queryList.getResultList();
+		return accountList;
+	}
 
-
-
+	@Override
+	public void deleteAccountFromDB(Accounts account) {
+		
+		Session session=sf.openSession();
+		Transaction trns=session.beginTransaction();
+		Query query=session.createQuery("DELETE FROM Accounts WHERE userID=:uid");
+		query.setParameter("uid", account.getUserID());
+		int rows=query.executeUpdate();
+		System.out.println(rows+" rows affected");
+		trns.commit();
+		//return "adminPortal";
+		
+	}
 
 }

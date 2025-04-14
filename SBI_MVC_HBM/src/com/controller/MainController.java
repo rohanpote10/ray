@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +32,7 @@ public class MainController {
 
 		if (resultPage.equals("Register")) {
 			model.addAttribute("success", "Account registered successfully !! Please Login");
-			return "Register";
+			return "Register"; 
 		} else {
 			model.addAttribute("loginMessage", "Account already exists !!! Please Login");
 			return "Login";
@@ -95,24 +96,38 @@ public class MainController {
 
 	@RequestMapping("/adminDashboard")
 	public String showAdminDashboard(Model model) {
-		System.out.println("Im here MC");
+		System.out.println("Im here");
 		accService.getAllUsers(model);
 		return "adminPortal"; 
 	}
 
-	@RequestMapping("/adminEdit")
-	public String editAccount(@RequestParam("userID") int id, Model model) {
-	    Accounts account = accService.getAccountById(id);
-	    if(account != null) {
-	        model.addAttribute("account", account);
-	        return "adminEdit";
-	    }
-	    return "adminPortal";
+//	@RequestMapping("/adminEdit")
+//	public String editAccount(@RequestParam("userID") int id, Model model) {
+//	    Accounts account = accService.getAccountById(id);
+//	    if(account != null) {
+//	        model.addAttribute("account", account);
+//	        return "adminEdit";
+//	    }
+//	    return "adminPortal";
+//	}
+	
+	@GetMapping("/adminEdit")
+	public String adminEdit(@RequestParam("userID") int uid, Model model) {
+	    Accounts acc = accService.getAccountById(uid);
+	    model.addAttribute("account", acc);
+	    return "adminEdit"; 
 	}
 
-	@RequestMapping("/updateAccount")
+
+	@RequestMapping(value = "/updateAccount", method = RequestMethod.POST)
 	public String updateAccount(@ModelAttribute Accounts account) {
 	    accService.updateAccount(account);
-	    return "redirect:/adminPortal";
+	    return "redirect:/adminDashboard";
+	}
+	
+	@RequestMapping("/deleteAccount")
+	public String deleteAccount(@ModelAttribute Accounts account) {
+		accService.deleteAccount(account);
+		return "redirect:/adminDashboard";
 	}
 }

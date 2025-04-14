@@ -36,4 +36,6 @@ public interface AccountService {
 	public Accounts getAccountById(int id);
 
 	public List<Accounts> updateAccount(Accounts account);
+
+	public void deleteAccount(Accounts account);
 }

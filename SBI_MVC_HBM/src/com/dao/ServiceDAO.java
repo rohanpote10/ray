@@ -36,4 +36,6 @@ public interface ServiceDAO {
 	public Accounts getAccountById(int id);
 	
 	List<Accounts> updateAccountInDB(Accounts account);
+
+	public void deleteAccountFromDB(Accounts account);
 }

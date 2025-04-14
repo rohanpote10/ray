@@ -103,5 +103,12 @@ public class AccountServiceImpl implements AccountService {
         return sd.updateAccountInDB(account);
     }
 
+	@Override
+	public void deleteAccount(Accounts account) {
+		
+		//return
+		sd.deleteAccountFromDB(account);
+	}
+
 
 }
