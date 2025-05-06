@@ -1,0 +1,73 @@
+Most Asked Interview Questions (Mostly Advance Java Questions)
+
+
+1. How do you implement Security in your Spring boot Application?
+2. What is JWT and how do you implement it?
+3. What are the Stereo types annotation in Springboot?
+4. Difference Between Rest Controller and Controller?
+5. What is @Qualifier, @Transactional Annotation?
+6. What are the validation annotation ?
+7. How do you implement Cache in Spring.
+8. What is lombok and benifit using it?
+9. What is Difference between Model Mapper and Object Mapper?
+10. How to configure multiple database in Spring Application?
+11. Difference between @Post, @Put and @Patch?
+12. Can we Insert the data using @Put ?
+13. Difference between @Getmapping and @Requestmapping?
+14. What is difference between Flatmap and map in stream?
+15. What is difference between stream and collection?
+16. What is ACID operation in Database?
+17. What are the types of Joins in Database?
+18. What is Indexing and their types?
+19. How to make Class Immutable? Any 4 example
+20. What is default scope of bean? and what are the types ?
+21. What are new feature added in Java 8 and explain the benifit?
+22. What are some of the advantages of using generics?
+23. How will you implement multi-threaded programming in Java?
+24. What are HTTP Verbs used for in API Development?
+25. Why do we have Microservice Architecture?
+26. How do you handle versioning in the API Program?
+27. How do you secure your Microservice Architecture?
+28. How would you ensure data consistency and transaction management across multiple microservices?
+29. How would you approach testing a Spring MVC controller that interacts with external dependencies like databases or REST APIs?
+30. How do you set up a basic Spring MVC controller to handle a simple web request?
+31. How do you set up a basic Kafka consumer in a Spring Boot application?
+32. What is Topic and Group Id and their use ?
+33. How do you ensure backward compatibility when updating a REST API?
+34. How do you implement error logging and monitoring for a microservices-based API?
+35. How do you optimize the performance of a REST API using caching strategies?
+36. How do you inject a dependency into a Spring component?
+37. Explain the concept of reactive programming in Spring WebFlux and its benefits for building scalable APIs.
+38. How would you implement a custom authentication provider in Spring Security for a unique authentication mechanism?
+39. Explain how you would handle asynchronous communication between microservices in a Spring application?
+40. How do you implement content negotiation in a Spring MVC application for supporting JSON and XML responses?
+41. How do you implement API analytics to track usage and performance metrics in a Spring Boot application?
+42. How do you integrate Spring Boot with a message broker like Kafka for event-driven communication?
+43. How do you implement basic form validation in a Spring MVC controller?
+44. How do you set up an OAuth2 authorization server using Spring Security?
+45. How do you use Spring Data JPA to implement pagination and sorting in a REST API?
+46. Difference Between JPA and Hibernate?
+47. How do you Handle Exception in Springboot?
+48. How does Spring application get started?
+49. How can we Exclude any Configuration in Spring?
+50. Can we disable the embedded server and add another server ?
+51. Difference Between Truncate and Delete?
+52. What are profiling in Spring boot?
+53. Annotation - @SpringBootApplication, @Configuration, @Bean, @Autowired , @Value , @Profile, @EnableAutoConfiguration.
+54. What is Circuit Breaker?
+55. What is Service Registry?
+56. What is message Broker?
+57. What are the new Inhancement in Date And Time API in Java 8.
+58. Why do we need Optional classe if we already have  If Else statement to check Null.
+59. What are the use of Default and Static Method in Interface ?
+60. What is the difference between intermediate and terminal operations in stream?
+61. Can we extend Functional Interface ?
+62. What is Lamda and Method Reference ?
+63. How to write the SQL queries in Spring boot and why do we need it?
+64. Name any 4 Design Pattern in Java?
+65. What is Excecuting Framework in Multithreading?
+66. What are the types of Lock ?
+67. Internal working of HashMap?
+68. Explain the Use Of Mockito ?
+69. What is @Pathvariable, @RequestParam and @Requestbody
+70. How do you hanlde Transaction in Microservice arcitecture?
