@@ -1,0 +1,22 @@
+﻿use company;
+select * from employee;
+create table employee1(empID int PRIMARY KEY,empName varchar(20) not null);
+desc employee1;
+INSERT INTO employee1 VALUES (201,'Chhagan Bhujbal');
+INSERT INTO employee1 VALUES (202,'Akshay Kumar');
+SELECT * FROM employee1;
+INSERT INTO employee1 VALUES(201,'Babu Pote');
+INSERT INTO employee1 (empName) VALUES('Andy Nangare');
+
+CREATE TABLE employee2(empID int NOT NULL UNIQUE,empName varchar(20),pancard varchar(20) UNIQUE,aadharNo varchar(20) NOT NULL UNIQUE);
+DESC employee2;
+
+CREATE TABLE employee3(empID INT PRIMARY KEY AUTO_INCREMENT,empName varchar(20));
+DESC employee3;
+INSERT INTO employee3(empName) VALUES('Yash Prajapati');
+SELECT * FROM employee3;
+INSERT INTO employee3(empName) VALUES('Andy Nangare');
+INSERT INTO employee3(empName) VALUES('Babu Pote');
+INSERT INTO employee3(empName) VALUES('Vikrant Paul');
+CREATE TABLE department(deptID INT PRIMARY KEY,deptName VARCHAR(20));
+DESC department;

@@ -1,0 +1,81 @@
+﻿#creates database (create database //)
+CREATE DATABASE company;
+#switches database to specified database (use //)
+USE company;
+#creates table (create table //)
+create table employee(empID int,empName varchar(30),address varchar(25),contact long,emailID varchar(40),dept varchar(15));
+#displays blueprint of a table (desc //)
+desc employee;
+#Single Insertion of data (insert into // values //)
+insert into employee values(101,'Yash Kumbhar','PCMC',9876543211,'yash@abc.com','IT');
+insert into employee values(102,'Rohan Pote','PCMC',9476543211,'rohan@abc.com','IT');
+insert into employee values(103,'Aniket Nangare','PMC',9976543211,'aniket@assets.com','AssetManagement');
+insert into employee values(110,'Sagar Kumbhar','BMC',9976523211,'sagar@technicals.com','Technical Security');
+#Displays all Data of table (select // from //)
+select * from employee;
+# Multiple insertion of data  (insert into // values //)
+insert into employee values(104,'Shrikant Poul','PMC',9976543211,'shri@assets.com','AssetManagement'),
+                            (105,'Vickrant Poul','DehuRoad',9976541211,'vickrant@assets.com','Asset Management'),
+                            (106,'Tushar Jagtap','DehuRoad',9276543211,'tushar@admin.com','Administration'),
+                            (107,'Akash Hagwane','Khadki',9946541211,'vickrant@admin.com','Administration'),
+                            (108,'Shubham Pote','Khadki',9976563211,'shubham@hr.com','Human Resources'),
+                            (109,'Abhijeet Hagwane','Ravet',9376541211,'abhijeet@hr.com','Human Resources'),
+                            (110,'Nilima Varpe','Dapodi',9976343211,'shri@training.com','Training'),
+                            (111,'Nilesh Ugale','Dapodi',9976741211,'nilesh@training.com','Training');
+insert into employee values(104,'Shrikant Poul','PMC',9976543211,'shri@assets.com','AssetManagement');
+#Partial insertion of data (insert into // values //)
+insert into employee(empID) values(112);
+insert into employee(empName) values('Suraj Jagtap');
+insert into employee(dept) values('Technical Security');
+# Displaying all values of a table(select // from //)
+select * from employee;
+# Displaying a single column (empID) of a table
+select empId from employee;
+# Displaying a single column (emailID) of a table
+select emailID from employee;
+# Displaying multiple columns (empID)(emailID) of a table
+select empID,emailID from employee;
+##Comparison Operators && Where Clause
+# = Operator (select // from // where //)
+select * from employee where empID=105;
+select empName,address,emailID from employee where empID=105;
+# < Operator
+select * from employee where empID<106;
+# > Operator
+select * from employee where empID>106;
+# <= Operator
+select * from employee where empID<=106;
+# >= Operator
+select * from employee where empID>=106;
+# AND Operator ---Comparison Column names should be different---This checks the same data in the whole row
+# (select // from  // where // AND //)
+select * from employee where empID=103 AND empID=105;## This will not show any data because AND operator will search both ID's at one place
+select * from employee where empID=103 AND empName='Aniket Nangare';
+select address, contact, dept from employee where empID=103 AND empName='Aniket Nangare';
+select * from employee where empID=110 AND dept='Training';
+select * from employee where empID<106 AND address='PMC';
+# OR Operator
+# (select // from // where // OR //)
+select * from employee where empID=103 OR empID=105;## This will display data because atleast one of the column data should be true
+select * from employee where empID=103 OR empName='Vickrant Poul';
+select address, contact, dept from employee where empID=103 OR empName='Rohan Pote';
+select * from employee where empID=106 OR dept='Training';
+select * from employee where empID>=106 OR address='PMC';
+# NOT Operator (SELECT // FROM // WHERE // NOT) , (SELECT // FROM //WHERE // NOT //AND // NOT //)
+select * from employee where not empID=105 AND not empID=107;
+select * from employee where not address='PCMC' AND empName='Aniket Nangare';
+# BETWEEN Operator --->Used for range mostly used with int ,id's ,numeric data's only
+# (SELECT // FROM // WHERE // BETWEEN //)
+select * from employee where empID between 102 and 110;
+select * from employee where empID not between 102 and 110;
+# IN Operator --- similar to OR operator but returns more specific data with less lines of code
+#(SELECT // FROM // WHERE // IN//)
+select * from employee where empID in (103,104,110,105);
+select * from employee where empID in(103,104,110,105) AND not address='PMC';
+# LIKE operator
+#  %-- WildCard Operator ---> used to  match substring
+#(SELECT // FROM // WHERE // LIKE //)
+select * from employee where emailID LIKE '%admin%';
+select * from employee where empName LIKE '% Poul';
+
+select * from employee where contact LIKE '%11';

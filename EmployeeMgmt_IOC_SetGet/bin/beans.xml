@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+						"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<!--  Employee  -->
+<beans>
+	<bean id="employee" class="com.model.Employee">
+		<property name="empID" value="10"></property>
+		<property name="name" value="DonaldPote"></property>
+		<property name="salary" value="85000"></property>
+	</bean>
+	<bean id="employee1" class="com.model.Employee">
+		<property name="empID" value="20"></property>
+		<property name="name" value="DavidNangare"></property>
+		<property name="salary" value="70000"></property>
+	</bean>
+	<bean id="employee2" class="com.model.Employee">
+		<property name="empID" value="30"></property>
+		<property name="name" value="SarthakWilliams"></property>
+		<property name="salary" value="65000"></property>
+	</bean>
+	<bean id="employee3" class="com.model.Employee">
+		<property name="empID" value="40"></property>
+		<property name="name" value="VijayTrump"></property>
+		<property name="salary" value="59000"></property>
+	</bean>
+
+	<bean id="department" class="com.model.Department">
+		<property name="deptID" value="120"></property>
+		<property name="deptName" value="IT Infra"></property>
+		<property name="dnameAndLocation">
+			<map>
+				<entry key="Infra Support" value="Mumbai"></entry>
+				<entry key="Infra Maintainence" value="Mumbai"></entry>
+			</map>
+		</property>
+		<property name="listOfEmployees">
+			<list>
+				<ref bean="employee" />
+				<ref bean="employee1" />
+			</list>
+		</property>
+	</bean>
+	
+	<!--  Department  -->
+	<bean id="department1" class="com.model.Department">
+		<property name="deptID" value="130"></property>
+		<property name="deptName" value="Admin"></property>
+		<property name="dnameAndLocation">
+			<map>
+				<entry key="HR" value="Pune"></entry>
+				<entry key="Operations" value="Pune"></entry>
+			</map>
+		</property>
+		<property name="listOfEmployees">
+			<list>
+				<ref bean="employee2" />
+				<ref bean="employee3" />
+			</list>
+		</property>
+	</bean>
+	
+	<!--  Company  -->
+	<bean id="company" class="com.model.Company">
+		<property name="companyID" value="21010"></property>
+		<property name="companyName" value="ExponentITServices"></property>
+		<property name="listOfDepartments">
+			<list>
+				<ref bean="department" />
+				<ref bean="department1" />
+			</list>
+		</property>
+	</bean>
+
+
+
+</beans>

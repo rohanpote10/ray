@@ -1,0 +1,16 @@
+﻿USE exponentdatabase;
+CREATE TABLE students(studentID int, studentName varchar(20));
+DROP TABLE students;
+desc students;
+desc faculty;
+desc batch;
+DROP TABLE batch;
+CREATE TABLE batch(batchID int PRIMARY KEY, batchName varchar(20),fID int,FOREIGN KEY (fID) REFERENCES faculty(facultyID));
+desc batch;
+CREATE TABLE student(studentID int PRIMARY KEY,studentName varchar(20), bID int,FOREIGN KEY(bID) REFERENCES batch(batchID));
+desc student;
+SELECT * FROM faculty f;
+SELECT studentID, studentName, batchID, batchName, facultyID, facultyName,courseID, courseName FROM course
+INNER JOIN faculty ON course.courseID=faculty.cID
+INNER JOIN batch ON faculty.facultyID=batch.fID
+INNER JOIN student ON batch.batchID=student.bID;

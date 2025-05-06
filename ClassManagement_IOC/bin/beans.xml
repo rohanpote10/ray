@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+						"https://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	<bean id="course" class="com.model.Course">
+		<property name="courseID" value="101"></property>
+		<property name="courseName" value="JavaProgramming"></property>
+	</bean>
+ 
+	<bean id="faculty" class="com.model.Faculty">
+		<property name="facultyID" value="201"></property>
+		<property name="facultyName" value="NilimaMam"></property>
+		<property name="course" ref="course"></property>
+	</bean>
+
+	<bean id="batch" class="com.model.Batch">
+		<property name="batchID" value="301"></property>
+		<property name="batchName" value="JavaMorningBatch"></property>
+		<property name="faculty" ref="faculty"></property>
+	</bean>
+
+	<bean id="student" class="com.model.Student">
+	<constructor-arg value="401"></constructor-arg>
+	<constructor-arg value="DavidNangare"></constructor-arg>
+	<constructor-arg ref="batch"></constructor-arg>
+	</bean>
+
+</beans>
