@@ -25,17 +25,17 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 
-	@PostMapping("/")
+	@PostMapping("/add/")
 	public ResponseEntity<CategoryDTO> addCategory(@Valid @RequestBody CategoryDTO categoryDto) {
 		return new ResponseEntity(categoryService.addCategory(categoryDto), HttpStatus.CREATED);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDto,@PathVariable Integer id) {
 		return new ResponseEntity(categoryService.updateCategory(categoryDto, id), HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteCategory(@PathVariable Integer id) {
 		if (categoryService.deleteCategory(id) == 1)
 			return ResponseEntity.ok("Category deleted successfully !!");
@@ -43,12 +43,12 @@ public class CategoryController {
 			return new ResponseEntity("Unable to delete category", HttpStatus.BAD_REQUEST);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping("/get/{id}")
 	public ResponseEntity<CategoryDTO> getCategory(@PathVariable Integer id) {
 		return ResponseEntity.ok(categoryService.getCategory(id));
 	}
 
-	@GetMapping("/")
+	@GetMapping("/getall/")
 	public ResponseEntity<List<CategoryDTO>> getAllCategories() {
 		return ResponseEntity.ok(categoryService.getAllCategories());
 	}

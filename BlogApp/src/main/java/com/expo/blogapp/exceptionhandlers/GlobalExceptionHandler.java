@@ -40,4 +40,8 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> httpMethodNotSupported(HttpRequestMethodNotSupportedException msg){
 		return new ResponseEntity(msg.getMessage(),HttpStatus.BAD_REQUEST);
 	}
+	@ExceptionHandler(InvalidUsernamePasswordException.class)
+	public ResponseEntity<String> invalidUsernamePassword(InvalidUsernamePasswordException msg){
+		return new ResponseEntity(msg.getMessage(),HttpStatus.UNAUTHORIZED);
+	}
 }

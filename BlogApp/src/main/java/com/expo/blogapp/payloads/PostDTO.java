@@ -1,17 +1,22 @@
 package com.expo.blogapp.payloads;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.expo.blogapp.entities.Comment;
+
 import lombok.Data;
 
 @Data
 public class PostDTO {
 
+	private int postId;
 	@NotEmpty(message="Title cannot be empty")
 	private String title;
 	@NotEmpty(message="Content cannot be empty")
@@ -23,4 +28,5 @@ public class PostDTO {
 	
 	private CategoryDTO category;
 	private UsersDTO user;
+//	private Set<CommentDTO> comments	=new HashSet<>();
 }

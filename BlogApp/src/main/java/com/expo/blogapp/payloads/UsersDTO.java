@@ -1,11 +1,16 @@
 package com.expo.blogapp.payloads;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.UniqueElements;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,4 +33,6 @@ public class UsersDTO {
 	private String password;
 	@NotEmpty
 	private String about;
+	
+	private Set<RolesDTO> role=new HashSet<>();
 }
